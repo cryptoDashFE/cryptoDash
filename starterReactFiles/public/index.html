@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>GRID Main</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="index.css" />
+    <script defer src="index.js"></script>
+  </head>
+  <body>
+    <section class="grid-container mainChart">
+      <div class="grid-item logo">Logo</div>
+      <div id="lgChart" class="grid-item lgChart"></div>
+      <div class="grid-item timeFrames">
+        <button type="button" class="btn btn-secondary">1D</button>
+        <button type="button" class="btn btn-secondary">1W</button>
+        <button type="button" class="btn btn-secondary">1M</button>
+        <button type="button" class="btn btn-secondary">3M</button>
+        <button type="button" class="btn btn-secondary">6M</button>
+        <button type="button" class="btn btn-secondary">1Y</button>
+      </div>
+      <div class="grid-item options">
+        <button type="button" class="btn btn-primary">MarketCap</button>
+        <button type="button" class="btn btn-primary">Price</button>
+        <button type="button" class="btn btn-primary">Overlay</button>
+        <button type="button" class="btn btn-primary">Volume</button>
+      </div>
+      <div id="smChart1" class="grid-item smChart1"></div>
+      <div id="smChart2" class="grid-item smChart2"></div>
+      <div id="smChart3" class="grid-item smChart3"></div>
+    </section>
+  </body>
+</html>

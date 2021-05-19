@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>GRID Main</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="main.css" />
+    <script defer src="main.js"></script>
+  </head>
+  <body>
+    <section class="grid-container mainChart">
+      <div class="grid-item logo">Logo</div>
+      <div class="grid-item lgChart">Large Chart</div>
+      <div class="grid-item timeFrames">
+        <button type="button" class="btn btn-secondary">1D</button>
+        <button type="button" class="btn btn-secondary">1W</button>
+        <button type="button" class="btn btn-secondary">1M</button>
+        <button type="button" class="btn btn-secondary">3M</button>
+        <button type="button" class="btn btn-secondary">6M</button>
+        <button type="button" class="btn btn-secondary">1Y</button>
+      </div>
+      <div class="grid-item options">
+        <button type="button" class="btn btn-primary">MarketCap</button>
+        <button type="button" class="btn btn-primary">Price</button>
+        <button type="button" class="btn btn-primary">Overlay</button>
+        <button type="button" class="btn btn-primary">Volume</button>
+      </div>
+      <div class="grid-item smChart1">
+        <section class="grid-container charts">
+          <div class="grid-item chart">Chart One</div>
+          <div id="chartOneDropdown"></div>
+        </section>
+      </div>
+      <div class="grid-item smChart2">
+        <section class="grid-container charts">
+          <div class="grid-item chart">Chart Two</div>
+          <div id="chartTwoDropdown"></div>
+        </section>
+      </div>
+      <div class="grid-item smChart3">
+        <section class="grid-container charts">
+          <div class="grid-item chart">Chart Three</div>
+          <div id="chartThreeDropdown"></div>
+        </section>
+      </div>
+    </section>
+  </body>
+</html>
