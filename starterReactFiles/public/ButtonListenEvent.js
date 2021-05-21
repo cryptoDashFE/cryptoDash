@@ -1,14 +1,8 @@
 document.addEventListener("click", function handleClick(event) {
-    let element = event.target;
-
-    while (element) {
-        if (element.nodeName === "BUTTON" && /btn-secondary/.test(element.className)) {
-            helloWorld(element.value);
-            break;
+    if (/btn-secondary/.test(event.target.className)) {
+            //should be replaced with function to update chart timeframes
+            helloWorld(event.target.value);
         }
-
-        element = element.parentNode;
-    }
 })
 function helloWorld(value) {
     document.getElementById('lgChart').innerHTML = value;
