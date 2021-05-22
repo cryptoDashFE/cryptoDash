@@ -1,26 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import SmChartOne from './SmChart';
+import App from './App';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
-    <SmChartOne />
+    <App />
   </React.StrictMode>,
-  document.getElementById('smChart1')
-);
-
-ReactDOM.render(
-  <React.StrictMode>
-    <SmChartOne />
-  </React.StrictMode>,
-  document.getElementById('smChart2')
-);
-
-ReactDOM.render(
-  <React.StrictMode>
-    <SmChartOne />
-  </React.StrictMode>,
-  document.getElementById('smChart3')
+  document.getElementById('root')
 );
