@@ -40,3 +40,21 @@
   width: 50px;
   border: solid 1px white;
 }
+
+/* Chartone CSS **/
+.container {
+  margin: 20px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  text-align: center;
+  height: 100vh;
+}
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 80vh;
+}
+.chart-container {
+  width: 100%;
+  height: 100%;
+}
