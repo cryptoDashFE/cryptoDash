@@ -1,24 +1,24 @@
 import React from "react";
-import './index.css';
-import { Line } from 'react-chartjs-2';
+import "./index.css";
+import { Line } from "react-chartjs-2";
+import Chartone from "./Chartone";
 
 const getLabels = (currency) => {
-  return ['1', '2', '3', '4', '5', '6'];
-}
+  return ["1", "2", "3", "4", "5", "6"];
+};
 const getData = (currency) => {
-  return ['1', '2', '3', '4', '5', '6'];
-}
+  return ["1", "2", "3", "4", "5", "6"];
+};
 
-const genData = () => (
-  {
+const genData = () => ({
   labels: getLabels(),
   datasets: [
     {
-      label: 'Price',
+      label: "Price",
       data: getData(),
       fill: false,
-      backgroundColor: 'rgb(255, 99, 132)',
-      borderColor: 'rgba(255, 99, 132, 0.2)',
+      backgroundColor: "rgb(255, 99, 132)",
+      borderColor: "rgba(255, 99, 132, 0.2)",
     },
   ],
 });
@@ -36,7 +36,7 @@ const options = {
 };
 
 function App() {
-  const[time, setTime] = React.useState();
+  const [time, setTime] = React.useState();
 
   const [loading1, setLoading1] = React.useState(true);
   const [items1, setItems1] = React.useState([]);
@@ -56,14 +56,10 @@ function App() {
   React.useEffect(() => {
     let unmounted = false;
     async function getCurrencies() {
-      const response = await fetch(
-        "https://restcountries.eu/rest/v2/all"
-      );
+      const response = await fetch("https://restcountries.eu/rest/v2/all");
       const body = await response.json();
       if (!unmounted) {
-        setItems1(
-          body.map(({ name }) => ({ label: name, value: name }))
-        );
+        setItems1(body.map(({ name }) => ({ label: name, value: name })));
         setLoading1(false);
       }
     }
@@ -77,14 +73,10 @@ function App() {
   React.useEffect(() => {
     let unmounted = false;
     async function getCurrencies() {
-      const response = await fetch(
-        "https://restcountries.eu/rest/v2/all"
-      );
+      const response = await fetch("https://restcountries.eu/rest/v2/all");
       const body = await response.json();
       if (!unmounted) {
-        setItems2(
-          body.map(({ name }) => ({ label: name, value: name }))
-        );
+        setItems2(body.map(({ name }) => ({ label: name, value: name })));
         setLoading2(false);
       }
     }
@@ -98,14 +90,10 @@ function App() {
   React.useEffect(() => {
     let unmounted = false;
     async function getCurrencies() {
-      const response = await fetch(
-        "https://restcountries.eu/rest/v2/all"
-      );
+      const response = await fetch("https://restcountries.eu/rest/v2/all");
       const body = await response.json();
       if (!unmounted) {
-        setItems3(
-          body.map(({ name }) => ({ label: name, value: name }))
-        );
+        setItems3(body.map(({ name }) => ({ label: name, value: name })));
         setLoading3(false);
       }
     }
@@ -118,7 +106,8 @@ function App() {
 
   return (
     <section class="grid-container mainChart">
-      <div class="grid-item logo">Logo</div>
+      <Chartone />
+      {/* <div class="grid-item logo">Logo</div>
       <div id="lgChart" class="grid-item lgChart"><p>{time}</p></div>
       <div class="grid-item timeFrames">
         <button onClick={(e) => setTime(e.target.value)} type="button" class="btn btn-secondary" value="1D">1D</button>
@@ -178,7 +167,7 @@ function App() {
             </option>
           ))}
         </select>
-      </div>
+      </div> */}
     </section>
   );
 }
