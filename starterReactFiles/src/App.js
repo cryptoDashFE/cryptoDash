@@ -56,9 +56,12 @@ function App() {
   React.useEffect(() => {
     let unmounted = false;
     async function getCurrencies() {
-      const response = await fetch(
-        "https://restcountries.eu/rest/v2/all"
-      );
+      const url = 'https://rest.coinapi.io/v1/exchanges';
+      const response = await fetch(url, 
+      {
+        method: "GET",
+        headers: {'X-CoinAPI-Key': 'YOUR-KEY-HERE'}
+      });
       const body = await response.json();
       if (!unmounted) {
         setItems1(
@@ -77,9 +80,12 @@ function App() {
   React.useEffect(() => {
     let unmounted = false;
     async function getCurrencies() {
-      const response = await fetch(
-        "https://restcountries.eu/rest/v2/all"
-      );
+      const url = "https://rest.coinapi.io/v1/exchanges";
+      const response = await fetch(url, 
+      {
+        method: "GET",
+        headers: {'X-CoinAPI-Key': 'YOUR KEY HERE'}
+      });
       const body = await response.json();
       if (!unmounted) {
         setItems2(
@@ -98,9 +104,12 @@ function App() {
   React.useEffect(() => {
     let unmounted = false;
     async function getCurrencies() {
-      const response = await fetch(
-        "https://restcountries.eu/rest/v2/all"
-      );
+      const url = "https://rest.coinapi.io/v1/exchanges";
+      const response = await fetch(url, 
+      {
+        method: "GET",
+        headers: {'X-CoinAPI-Key': 'YOUR-KEY-HERE'}
+      });
       const body = await response.json();
       if (!unmounted) {
         setItems3(
