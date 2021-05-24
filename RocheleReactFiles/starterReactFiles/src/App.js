@@ -3,6 +3,7 @@ import './index.css';
 import { Line } from 'react-chartjs-2';
 
 const options = {
+  responsive: true,
   animation: {
     duration: 0
   },
@@ -19,19 +20,20 @@ const options = {
 
 function App() {
   const[time, setTime] = React.useState([]);
+  const[chartLg, setChartLg] = React.useState([]);
 
   const [items1, setItems1] = React.useState([]);
-  const [value1, setValue1] = React.useState();
+  const [value1, setValue1] = React.useState('Aruba');
   const [chart1, setChart1] = React.useState();
   const [chartData1, setChartData1] = React.useState([]);
   
   const [items2, setItems2] = React.useState([]);
-  const [value2, setValue2] = React.useState();
+  const [value2, setValue2] = React.useState('Spain');
   const [chart2, setChart2] = React.useState();
   const [chartData2, setChartData2] = React.useState([]);
 
   const [items3, setItems3] = React.useState([]);
-  const [value3, setValue3] = React.useState();
+  const [value3, setValue3] = React.useState('Mexico');
   const [chart3, setChart3] = React.useState();
   const [chartData3, setChartData3] = React.useState([]);
 
@@ -66,7 +68,7 @@ function App() {
     labels: time,
     datasets: [
       {
-        label: 'Price',
+        label: value1,
         data: chartData1,
         fill: false,
         backgroundColor: 'rgb(255, 99, 132)',
@@ -75,7 +77,7 @@ function App() {
     ],
   });
   setChart1(updateChart());
-}, [time, chartData1]);
+}, [time, value1, chartData1]);
   
   React.useEffect(() => {
     let unmounted = false;
@@ -115,16 +117,16 @@ function App() {
     labels: time,
     datasets: [
       {
-        label: 'Price',
+        label: value2,
         data: chartData2,
         fill: false,
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgba(255, 99, 132, 0.2)',
+        backgroundColor: 'rgb(75, 192, 192)',
+        borderColor: 'rgba(75, 192, 192, 0.2)',
       },
     ],
   });
   setChart2(updateChart());
-}, [time, chartData2]);
+}, [time, value2, chartData2]);
 
   React.useEffect(() => {
     let unmounted = false;
@@ -164,16 +166,16 @@ function App() {
     labels: time,
     datasets: [
       {
-        label: 'Price',
+        label: value3,
         data: chartData3,
         fill: false,
-        backgroundColor: 'rgb(255, 99, 132)',
-        borderColor: 'rgba(255, 99, 132, 0.2)',
+        backgroundColor: 'rgb(153, 102, 255)',
+        borderColor:  'rgba(153, 102, 255, 0.2)',
       },
     ],
   });
   setChart3(updateChart());
-}, [time, chartData3]);
+}, [time, value3, chartData3]);
 
   React.useEffect(() => {
     let unmounted = false;
@@ -198,10 +200,43 @@ function App() {
     };
   }, []);
 
+  React.useEffect(() => { 
+    const updateChart = () => (
+      {
+      labels: time,
+      datasets: [
+        {
+          label: value1,
+          data: chartData1,
+          fill: false,
+          backgroundColor: 'rgb(255, 99, 132)',
+          borderColor: 'rgba(255, 99, 132, 0.2)',
+        },
+        {
+          label: value2,
+          data: chartData2,
+          fill: false,
+          backgroundColor: 'rgb(75, 192, 192)',
+          borderColor: 'rgba(75, 192, 192, 0.2)',
+        },
+        {
+          label: value3,
+          data: chartData3,
+          fill: false,
+          backgroundColor: 'rgb(153, 102, 255)',
+          borderColor: 'rgba(153, 102, 255, 0.2)',
+        },
+      ],
+    });
+    setChartLg(updateChart());
+  }, [time, value1, chartData1, value2, chartData2, value3, chartData3]);
+
   return (
     <section className="grid-container mainChart">
       <div className="grid-item logo">Logo</div>
-      <div id="lgChart" className="grid-item lgChart"><p>{time}</p></div>
+      <div id="lgChart" className="grid-item lgChart">
+        <Line className="lg" data={chartLg} options={options} />
+      </div>
       <div className="grid-item timeFrames">
         <button onClick={(e) => setTime(['d', 'd', 'd', 'd', 'd', 'd'])} type="button" className="btn btn-secondary">1D</button>
         <button onClick={(e) => setTime(['w', 'w', 'w', 'w', 'w', 'w'])} type="button" className="btn btn-secondary">1W</button>
@@ -217,7 +252,6 @@ function App() {
         <button type="button" className="btn btn-primary">Volume</button>
       </div>
         <div id="smChart1" className="grid-item smChart1">
-          <p>{value1}</p>
           <Line data={chart1} options={options} />
           <select
             value={value1}
@@ -231,7 +265,6 @@ function App() {
           </select>
         </div>
         <div id="smChart2" className="grid-item smChart2">
-          <p>{value2}</p>
           <Line data={chart2} options={options} />
           <select
             value={value2}
@@ -245,7 +278,6 @@ function App() {
           </select>
         </div>
       <div id="smChart3" className="grid-item smChart3">
-        <p>{value3}</p>
         <Line data={chart3} options={options} />
         <select
           value={value3}
