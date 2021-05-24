@@ -83,8 +83,7 @@ function Charts() {
         .then((res) => res.json())
         .then((data) => (dataArr = data));
 
-      /*************** TODO : Need some loging to call the correct function.  **************/
-
+      /*************** TODO : Need some logic to call the correct function.  ******************/
       // formatWeekData funnction parse dataArr for week
       // let formattedData = formatWeekData(dataArr);
 
