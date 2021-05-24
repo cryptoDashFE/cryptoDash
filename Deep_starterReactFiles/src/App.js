@@ -1,7 +1,7 @@
 import React from "react";
 import "./index.css";
 import { Line } from "react-chartjs-2";
-import Chartone from "./Chartone";
+import Charts from "./Charts";
 
 const getLabels = (currency) => {
   return ["1", "2", "3", "4", "5", "6"];
@@ -105,70 +105,123 @@ function App() {
   }, []);
 
   return (
-    <section class="grid-container mainChart">
-      <Chartone />
-      {/* <div class="grid-item logo">Logo</div>
-      <div id="lgChart" class="grid-item lgChart"><p>{time}</p></div>
-      <div class="grid-item timeFrames">
-        <button onClick={(e) => setTime(e.target.value)} type="button" class="btn btn-secondary" value="1D">1D</button>
-        <button onClick={(e) => setTime(e.target.value)} type="button" class="btn btn-secondary" value="1W">1W</button>
-        <button onClick={(e) => setTime(e.target.value)} type="button" class="btn btn-secondary" value="1M">1M</button>
-        <button onClick={(e) => setTime(e.target.value)} type="button" class="btn btn-secondary" value="3M">3M</button>
-        <button onClick={(e) => setTime(e.target.value)} type="button" class="btn btn-secondary" value="6M">6M</button>
-        <button onClick={(e) => setTime(e.target.value)} type="button" class="btn btn-secondary" value="1Y">1Y</button>
-      </div>
-      <div class="grid-item options">
-        <button type="button" class="btn btn-primary">MarketCap</button>
-        <button type="button" class="btn btn-primary">Price</button>
-        <button type="button" class="btn btn-primary">Overlay</button>
-        <button type="button" class="btn btn-primary">Volume</button>
-      </div>
-        <div id="smChart1" class="grid-item smChart1">
-          <p>{value1}</p>
-          <Line data={chart1} options={options} />
-          <select
-            disabled={loading1}
-            value={value1}
-            onChange={(e) => 
-            setValue1(e.currentTarget.value)}>
-            {items1.map(({ label, value }) => (
-          <option key={value} value={value}>
-            {label}
-          </option>
-          ))}
-          </select>
-        </div>
-        <div id="smChart2" class="grid-item smChart2">
-          <p>{value2}</p>
-          <Line data={chart2} options={options} />
-          <select
-            disabled={loading2}
-            value={value2}
-            onChange={(e) => 
-            setValue2(e.currentTarget.value)}>
-          {items2.map(({ label, value }) => (
-          <option key={value} value={value}>
-            {label}
-          </option>
-          ))}
-          </select>
-        </div>
-      <div id="smChart3" class="grid-item smChart3">
-        <p>{value3}</p>
-        <Line data={chart3} options={options} />
-        <select
-          disabled={loading3}
-          value={value3}
-          onChange={(e) => 
-            setValue3(e.currentTarget.value)}>
-          {items3.map(({ label, value }) => (
-            <option key={value} value={value3}>
-              {label}
-            </option>
-          ))}
-        </select>
-      </div> */}
-    </section>
+    <Charts />
+    // <section class="grid-container mainChart">
+    //   <div class="grid-item logo">Logo</div>
+    //   <div id="lgChart" class="grid-item lgChart">
+    //     <p>{time}</p>
+    //   </div>
+    //   <div class="grid-item timeFrames">
+    //     {/* <Chartone /> */}
+    //     <button
+    //       onClick={(e) => setTime(e.target.value)}
+    //       type="button"
+    //       class="btn btn-secondary"
+    //       value="1D"
+    //     >
+    //       1D
+    //     </button>
+    //     <button
+    //       onClick={(e) => setTime(e.target.value)}
+    //       type="button"
+    //       class="btn btn-secondary"
+    //       value="1W"
+    //     >
+    //       1W
+    //     </button>
+    //     <button
+    //       onClick={(e) => setTime(e.target.value)}
+    //       type="button"
+    //       class="btn btn-secondary"
+    //       value="1M"
+    //     >
+    //       1M
+    //     </button>
+    //     <button
+    //       onClick={(e) => setTime(e.target.value)}
+    //       type="button"
+    //       class="btn btn-secondary"
+    //       value="3M"
+    //     >
+    //       3M
+    //     </button>
+    //     <button
+    //       onClick={(e) => setTime(e.target.value)}
+    //       type="button"
+    //       class="btn btn-secondary"
+    //       value="6M"
+    //     >
+    //       6M
+    //     </button>
+    //     <button
+    //       onClick={(e) => setTime(e.target.value)}
+    //       type="button"
+    //       class="btn btn-secondary"
+    //       value="1Y"
+    //     >
+    //       1Y
+    //     </button>
+    //   </div>
+    //   <div class="grid-item options">
+    //     <button type="button" class="btn btn-primary">
+    //       MarketCap
+    //     </button>
+    //     <button type="button" class="btn btn-primary">
+    //       Price
+    //     </button>
+    //     <button type="button" class="btn btn-primary">
+    //       Overlay
+    //     </button>
+    //     <button type="button" class="btn btn-primary">
+    //       Volume
+    //     </button>
+    //   </div>
+    //   <div id="smChart1" class="grid-item smChart1">
+    //     <p>{value1}</p>
+    //     <Line data={chart1} options={options} />
+    //     <select
+    //       disabled={loading1}
+    //       value={value1}
+    //       onChange={(e) => setValue1(e.currentTarget.value)}
+    //     >
+    //       {items1.map(({ label, value }) => (
+    //         <option key={value} value={value}>
+    //           {label}
+    //         </option>
+    //       ))}
+    //     </select>
+    //   </div>
+    //   <div id="smChart2" class="grid-item smChart2">
+    //     <p>{value2}</p>
+    //     <Line data={chart2} options={options} />
+    //     <select
+    //       disabled={loading2}
+    //       value={value2}
+    //       onChange={(e) => setValue2(e.currentTarget.value)}
+    //     >
+    //       {items2.map(({ label, value }) => (
+    //         <option key={value} value={value}>
+    //           {label}
+    //         </option>
+    //       ))}
+    //     </select>
+    //   </div>
+    //   <div id="smChart3" class="grid-item smChart3">
+    //     <p>{value3}</p>
+    //     <Line data={chart3} options={options} />
+    //     <select
+    //       disabled={loading3}
+    //       value={value3}
+    //       onChange={(e) => setValue3(e.currentTarget.value)}
+    //     >
+    //       {items3.map(({ label, value }) => (
+    //         <option key={value} value={value3}>
+    //           {label}
+    //         </option>
+    //       ))}
+    //     </select>
+    //   </div>
+    // </section>
   );
 }
 

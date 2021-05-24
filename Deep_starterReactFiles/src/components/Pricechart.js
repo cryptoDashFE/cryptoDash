@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 import { Line } from "react-chartjs-2";
 
-function Dashboard({ price, data }) {
+function Pricechart({ price, data }) {
   const opts = {
     tooltips: {
       intersect: false,
@@ -24,4 +24,4 @@ function Dashboard({ price, data }) {
   );
 }
 
-export default Dashboard;
+export default Pricechart;

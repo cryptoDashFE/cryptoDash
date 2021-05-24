@@ -1,10 +1,12 @@
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { formatData } from "./utils";
-import Dashboard from "./components/Dashboard";
+import { formatWeekData } from "./WeekFormat";
+import { formatMonthData } from "./Monthformat";
+import Pricechart from "./components/Pricechart";
 import "./index.css";
 
-function Chartone() {
+function Charts() {
   const [currencies, setcurrencies] = useState([]);
   const [pair, setpair] = useState("");
   const [price, setprice] = useState("0.00");
@@ -81,9 +83,14 @@ function Chartone() {
         .then((res) => res.json())
         .then((data) => (dataArr = data));
 
-      console.log(dataArr);
-      let formattedData = formatData(dataArr);
-      console.log("formated:", dataArr);
+      /*************** TODO : Need some loging to call the correct function.  **************/
+
+      // formatWeekData funnction parse dataArr for week
+      // let formattedData = formatWeekData(dataArr);
+
+      // formatMonthData function parse dataArr for 1 Month / 31 days
+      let formattedData = formatMonthData(dataArr);
+
       setpastData(formattedData);
     };
 
@@ -98,8 +105,8 @@ function Chartone() {
 
       // Update the price / real time updates
       if (data.product_id === pair) {
-        // console.log("id matches");
-        setprice(data.price);
+        let twoDec = (Math.round(data.price * 100) / 100).toFixed(2);
+        setprice(twoDec);
       }
     };
   }, [pair]);
@@ -133,9 +140,9 @@ function Chartone() {
         </select>
       }
 
-      <Dashboard price={price} data={pastData} />
+      <Pricechart price={price} data={pastData} />
     </div>
   );
 }
 
-export default Chartone;
+export default Charts;
