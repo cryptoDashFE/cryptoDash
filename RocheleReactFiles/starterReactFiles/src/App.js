@@ -252,7 +252,7 @@ function App() {
           onChange={(e) => 
             setValue3(e.currentTarget.value)}>
           {items3.map(({ label, value }) => (
-            <option key={value} value={value3}>
+            <option key={value} value={value}>
               {label}
             </option>
           ))}
