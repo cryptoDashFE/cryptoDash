@@ -250,7 +250,7 @@ function App() {
         <button type="button" className="btn btn-primary">Price</button>
         <button type="button" className="btn btn-primary">Overlay</button>
         <button type="button" className="btn btn-primary">Volume</button>
-      </div>
+      </div> 
         <div id="smChart1" className="grid-item smChart1">
           <Line data={chart1} options={options} />
           <select
