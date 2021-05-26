@@ -1,10 +1,8 @@
+import React, { useRef } from "react";
 import { Line } from "react-chartjs-2";
 
-function Dashboard({ price, data }) {
+function Pricechart({ price, data }) {
   const opts = {
-    animation: {
-      duration: 0
-    },
     tooltips: {
       intersect: false,
       mode: "index",
@@ -13,7 +11,7 @@ function Dashboard({ price, data }) {
     maintainAspectRatio: false,
   };
   if (price === "0.00") {
-    return <h3>PLEASE SELECT A CURRENCY PAIR</h3>;
+    return <h2>please select a currency pair</h2>;
   }
   return (
     <div className="dashboard">
@@ -26,4 +24,4 @@ function Dashboard({ price, data }) {
   );
 }
 
-export default Dashboard;
+export default Pricechart;

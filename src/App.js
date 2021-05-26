@@ -2,7 +2,9 @@ import './index.css';
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import { formatData } from "./utils";
-import Dashboard from "./components/Dashboard";
+import Pricechart from "./components/Pricechart";
+import { formatWeekData } from "./WeekFormat";
+import { formatMonthData } from "./Monthformat";
 
 function App() {
   const[time, setTime] = useState([]);
@@ -95,9 +97,12 @@ useEffect(() => {
         .then((res) => res.json())
         .then((data) => (dataArr = data));
 
-      console.log(dataArr);
-      let formattedData = formatData(dataArr, 1);
-      console.log("formated:", dataArr);
+            /*************** TODO : Need some logic to call the correct function.  ******************/
+      // formatWeekData funnction parse dataArr for week
+      // let formattedData = formatWeekData(dataArr);
+
+      // formatMonthData function parse dataArr for 1 Month / 31 days
+      let formattedData = formatMonthData(dataArr, 1);
       setpastData1(formattedData);
     };
 
@@ -161,9 +166,12 @@ useEffect(() => {
       .then((res) => res.json())
       .then((data) => (dataArr = data));
 
-    console.log(dataArr);
-    let formattedData = formatData(dataArr, 2);
-    console.log("formated:", dataArr);
+      /*************** TODO : Need some logic to call the correct function.  ******************/
+      // formatWeekData funnction parse dataArr for week
+      // let formattedData = formatWeekData(dataArr);
+
+      // formatMonthData function parse dataArr for 1 Month / 31 days
+      let formattedData = formatMonthData(dataArr, 2);
     setpastData2(formattedData);
   };
 
@@ -226,9 +234,12 @@ useEffect(() => {
       .then((res) => res.json())
       .then((data) => (dataArr = data));
 
-    console.log(dataArr);
-    let formattedData = formatData(dataArr, 3);
-    console.log("formated:", dataArr);
+          /*************** TODO : Need some logic to call the correct function.  ******************/
+      // formatWeekData funnction parse dataArr for week
+      // let formattedData = formatWeekData(dataArr);
+
+      // formatMonthData function parse dataArr for 1 Month / 31 days
+      let formattedData = formatMonthData(dataArr, 3);
     setpastData3(formattedData);
   };
 
@@ -285,7 +296,7 @@ const handleSelect3 = (e) => {
         <button type="button" className="btn btn-primary">Volume</button>
       </div> 
         <div id="smChart1" className="grid-item smChart1">
-        <Dashboard price={price1} data={pastData1} />
+        <Pricechart price={price1} data={pastData1} />
           <select name="currency" value={pair1} onChange={handleSelect1}>
           {currencies.map((cur, idx) => {
             return (
@@ -297,7 +308,7 @@ const handleSelect3 = (e) => {
         </select>
         </div>
         <div id="smChart2" className="grid-item smChart2">
-        <Dashboard price={price2} data={pastData2} />
+        <Pricechart price={price2} data={pastData2} />
           <select name="currency" value={pair2} onChange={handleSelect2}>
           {currencies.map((cur, idx) => {
             return (
@@ -309,7 +320,7 @@ const handleSelect3 = (e) => {
         </select>
         </div>
       <div id="smChart3" className="grid-item smChart3">
-      <Dashboard price={price3} data={pastData3} />
+      <Pricechart price={price3} data={pastData3} />
           <select name="currency" value={pair3} onChange={handleSelect3}>
           {currencies.map((cur, idx) => {
             return (
