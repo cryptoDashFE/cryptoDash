@@ -1,17 +1,48 @@
 // Format one week data
-export const formatWeekData = (data) => {
-  let finalData = {
+export const formatWeekData = (data, chartNum) => {
+  let finalData;
+  if (chartNum === 1) {
+  finalData = {
     labels: [],
     datasets: [
       {
-        label: "Price in USD",
+        label: "Price",
         data: [],
-        backgroundColor: "rgb(255, 99, 132, 0.8)",
+        backgroundColor: "rgb(255, 99, 132)",
         borderColor: "rgba(255, 99, 132, 0.2)",
         fill: false,
       },
     ],
   };
+}
+else if (chartNum === 2) {
+  finalData = {
+    labels: [],
+    datasets: [
+      {
+        label: "Price",
+        data: [],
+        backgroundColor: 'rgb(75, 192, 192)',
+        borderColor: 'rgba(75, 192, 192, 0.2)',
+        fill: false,
+      },
+    ],
+  };
+}
+else {
+  finalData = {
+    labels: [],
+    datasets: [
+      {
+        label: "Price",
+        data: [],
+        backgroundColor: 'rgb(153, 102, 255)',
+        borderColor:  'rgba(153, 102, 255, 0.2)',
+        fill: false,
+      },
+    ],
+  };
+} 
 
   let dates = data.map((val) => {
     // [0, 1, 2, 3, 4, 5]

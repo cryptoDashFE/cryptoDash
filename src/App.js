@@ -7,22 +7,22 @@ import { formatMonthData } from "./Monthformat";
 import { formatData } from './utils.js';
 
 function App() {
-  const[time, setTime] = useState('1d');
+  const[time, setTime] = useState('');
  // const[chartLg, setChartLg] = useState([]);
   const [currencies, setcurrencies] = useState([]);
   
   //Chart 1 
-  const [pair1, setpair1] = useState("");
+  const [pair1, setpair1] = useState("BTC-USD");
   const [price1, setprice1] = useState("0.00");
   const [pastData1, setpastData1] = useState({});
 
   //Chart 2
-  const [pair2, setpair2] = useState("");
+  const [pair2, setpair2] = useState("BTC-USD");
   const [price2, setprice2] = useState("0.00");
   const [pastData2, setpastData2] = useState({});
 
   //Chart 3
-  const [pair3, setpair3] = useState("");
+  const [pair3, setpair3] = useState("BTC-USD");
   const [price3, setprice3] = useState("0.00");
   const [pastData3, setpastData3] = useState({});
   
