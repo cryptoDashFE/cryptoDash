@@ -1,35 +1,44 @@
 import './index.css';
 import React from "react";
 import { useState, useEffect, useRef } from "react";
-import { formatData } from "./utils";
 import Pricechart from "./components/Pricechart";
 import { formatWeekData } from "./WeekFormat";
 import { formatMonthData } from "./Monthformat";
+import { formatData } from './utils.js';
 
 function App() {
-  const[time, setTime] = useState([]);
+  const[time, setTime] = useState('1d');
  // const[chartLg, setChartLg] = useState([]);
-
   const [currencies, setcurrencies] = useState([]);
+  
+  //Chart 1 
   const [pair1, setpair1] = useState("");
   const [price1, setprice1] = useState("0.00");
   const [pastData1, setpastData1] = useState({});
 
+  //Chart 2
   const [pair2, setpair2] = useState("");
   const [price2, setprice2] = useState("0.00");
   const [pastData2, setpastData2] = useState({});
 
+  //Chart 3
   const [pair3, setpair3] = useState("");
   const [price3, setprice3] = useState("0.00");
   const [pastData3, setpastData3] = useState({});
   
-  const ws = useRef(null);
+  //so each chart can keep track of live time data
+  const ws1 = useRef(null);
+  const ws2 = useRef(null);
+  const ws3 = useRef(null);
+
   let first = useRef(false);
   const url = "https://api.pro.coinbase.com";
 
 //populate cryptocurrency options in dropdown  
 useEffect(() => {
-  ws.current = new WebSocket("wss://ws-feed.pro.coinbase.com");
+  ws1.current = new WebSocket("wss://ws-feed.pro.coinbase.com");
+  ws2.current = new WebSocket("wss://ws-feed.pro.coinbase.com");
+  ws3.current = new WebSocket("wss://ws-feed.pro.coinbase.com");
   let pairs = [];
 
   const apiCall = async () => {
@@ -84,7 +93,7 @@ useEffect(() => {
 
     let jsonMsg = JSON.stringify(msg);
 
-    ws.current.send(jsonMsg);
+    ws1.current.send(jsonMsg);
 
     // let historicalDataURL = `${url}/products/${pair}/candles?start=2020-05-22T12:00:00&stop=2021-05-22T12:00:00&granularity=86400`;
 
@@ -97,36 +106,27 @@ useEffect(() => {
         .then((res) => res.json())
         .then((data) => (dataArr = data));
 
-            /*************** TODO : Need some logic to call the correct function.  ******************/
-      // formatWeekData funnction parse dataArr for week
-      // let formattedData = formatWeekData(dataArr);
-
-      // formatMonthData function parse dataArr for 1 Month / 31 days
-      let formattedData = formatMonthData(dataArr, 1);
+      /*************** TODO : Implement all timeframe functions.  ******************/
+      // Replace formatData function with the function for that specific timeframe.
+      let formattedData;
+      if(time === '1d') 
+        formattedData= formatData(dataArr, 1);
+      else if(time === '1w')
+        // formatWeekData funnction parse dataArr for week
+        formattedData = formatWeekData(dataArr, 1);
+      else if(time === '1m')
+        // formatMonthData function parse dataArr for 1 Month / 31 days
+        formattedData = formatMonthData(dataArr, 1);
+      else if(time === '3m')
+        formattedData = formatData(dataArr, 1);
+      else if(time === '6m')
+        formattedData = formatData(dataArr, 1);
+      else if(time === '1y')
+        formattedData = formatData(dataArr, 1);
+      else 
+        formattedData = formatData(dataArr, 1);
       setpastData1(formattedData);
     };
-
-    fetchHistoricalData();
-
-    ws.current.onmessage = (e) => {
-      let data = JSON.parse(e.data);
-      if (data.type !== "ticker") {
-        // console.log("NON TICKER EVENT", e);
-        return;
-      }
-
-      // Update the price / real time updates
-      if (data.product_id === pair1) {
-        // console.log("id matches");
-        setprice1(data.price);
-      }
-    };
-  }, [pair1]);
-
-  const handleSelect1 = (e) => {
-    let unsubMsg = {
-      type: "unsubscribe",
-      product_ids: [pair1],
 
     fetchHistoricalData();
 
@@ -263,13 +263,61 @@ useEffect(() => {
   let historicalDataURL = `${url}/products/${pair3}/candles?granularity=86400`;
 
   // console.log(historicalDataURL);
+  const fetchHistoricalData = async () => {
+    let dataArr = [];
+    await fetch(historicalDataURL)
+      .then((res) => res.json())
+      .then((data) => (dataArr = data));
+
+          /*************** TODO : Implement all timeframe functions.  ******************/
+          // Replace formatData function with the function for that specific timeframe.
+          let formattedData;
+          if(time === '1d') 
+            formattedData= formatData(dataArr, 3);
+          else if(time === '1w')
+            // formatWeekData funnction parse dataArr for week
+            formattedData = formatWeekData(dataArr, 3);
+          else if(time === '1m')
+            // formatMonthData function parse dataArr for 1 Month / 31 days
+            formattedData = formatMonthData(dataArr, 3);
+          else if(time === '3m')
+            formattedData = formatData(dataArr, 3);
+          else if(time === '6m')
+            formattedData = formatData(dataArr, 3);
+          else if(time === '1y')
+            formattedData = formatData(dataArr, 3);
+          else 
+            formattedData = formatData(dataArr, 3);
+    setpastData3(formattedData);
+  };
+
+  fetchHistoricalData();
+
+  ws3.current.onmessage = (e) => {
+    let data = JSON.parse(e.data);
+    if (data.type !== "ticker") {
+      // console.log("NON TICKER EVENT", e);
+      return;
+    }
+
+    // Update the price / real time updates
+    if (data.product_id === pair3) {
+      // console.log("id matches");
+      setprice3(data.price);
+    }
+  };
+}, [time, pair3]);
+
+const handleSelect3 = (e) => {
+  let unsubMsg = {
+    type: "unsubscribe",
     product_ids: [pair3],
     channels: ["ticker"],
   };
 
   // When we change the option. This will unsubscribe the previous property
   let unsub = JSON.stringify(unsubMsg);
-  ws.current.send(unsub);
+  ws3.current.send(unsub);
 
   setpair3(e.target.value);
 };
@@ -282,12 +330,12 @@ useEffect(() => {
         <p>Large</p> 
       </div>
       <div className="grid-item timeFrames">
-        <button onClick={(e) => setTime(['d', 'd', 'd', 'd', 'd', 'd'])} type="button" className="btn btn-secondary">1D</button>
-        <button onClick={(e) => setTime(['w', 'w', 'w', 'w', 'w', 'w'])} type="button" className="btn btn-secondary">1W</button>
-        <button onClick={(e) => setTime([1, 1, 1, 1, 1, 1])} type="button" className="btn btn-secondary">1M</button>
-        <button onClick={(e) => setTime([3, 3, 3, 3, 3, 3])} type="button" className="btn btn-secondary">3M</button>
-        <button onClick={(e) => setTime([6, 6, 6, 6, 6, 6])} type="button" className="btn btn-secondary">6M</button>
-        <button onClick={(e) => setTime(['y', 'y', 'y', 'y', 'y', 'y'])} type="button" className="btn btn-secondary">1Y</button>
+        <button onClick={(e) => setTime('1d')} type="button" className="btn btn-secondary">1D</button>
+        <button onClick={(e) => setTime('1w')} type="button" className="btn btn-secondary">1W</button>
+        <button onClick={(e) => setTime('1m')} type="button" className="btn btn-secondary">1M</button>
+        <button onClick={(e) => setTime('3m')} type="button" className="btn btn-secondary">3M</button>
+        <button onClick={(e) => setTime('6m')} type="button" className="btn btn-secondary">6M</button>
+        <button onClick={(e) => setTime('1y')} type="button" className="btn btn-secondary">1Y</button>
       </div>
       <div className="grid-item options">
         <button type="button" className="btn btn-primary">MarketCap</button>
