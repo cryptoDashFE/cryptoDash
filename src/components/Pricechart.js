@@ -3,6 +3,9 @@ import { Line } from "react-chartjs-2";
 
 function Pricechart({ price, data }) {
   const opts = {
+    animation: {
+      durations: 0
+    },
     tooltips: {
       intersect: false,
       mode: "index",
