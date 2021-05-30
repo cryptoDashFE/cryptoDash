@@ -8,8 +8,8 @@ export const formatMonthData = (data, chartNum) => {
       {
         label: "Price",
         data: [],
-        backgroundColor: "rgb(255, 99, 132)",
-        borderColor: "rgba(255, 99, 132, 0.2)",
+        backgroundColor: "rgb(57, 255, 20)",
+        borderColor: "rgba(57, 255, 20, 0.2)",
         fill: false,
       },
     ],
@@ -22,8 +22,8 @@ else if (chartNum === 2) {
       {
         label: "Price",
         data: [],
-        backgroundColor: 'rgb(75, 192, 192)',
-        borderColor: 'rgba(75, 192, 192, 0.2)',
+        backgroundColor: "rgb(255, 163, 67)",
+        borderColor: "rgba(255, 163, 67, 0.2)",
         fill: false,
       },
     ],
@@ -36,8 +36,8 @@ else {
       {
         label: "Price",
         data: [],
-        backgroundColor: 'rgb(153, 102, 255)',
-        borderColor:  'rgba(153, 102, 255, 0.2)',
+        backgroundColor: "rgb(254, 65, 100)",
+        borderColor:  "rgba(254, 65, 100, 0.2)",
         fill: false,
       },
     ],
