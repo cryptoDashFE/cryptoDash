@@ -2,9 +2,10 @@ import React, { useRef } from "react";
 import { Line } from "react-chartjs-2";
 
 function Pricechart({ price, data }) {
+  // console.log("data: ", data.labels);
   const opts = {
     animation: {
-      durations: 0
+      durations: 0,
     },
     tooltips: {
       intersect: false,
