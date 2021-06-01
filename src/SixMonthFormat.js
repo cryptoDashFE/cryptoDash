@@ -2,45 +2,47 @@
 export const SixMonthFormat = (data, chartNum) => {
   let finalData;
   if (chartNum === 1) {
-    finalData = {
-      labels: [],
-      datasets: [
-        {
-          label: "Price",
-          data: [],
-          backgroundColor: "rgb(255, 99, 132)",
-          borderColor: "rgba(255, 99, 132, 0.2)",
-          fill: false,
-        },
-      ],
-    };
-  } else if (chartNum === 2) {
-    finalData = {
-      labels: [],
-      datasets: [
-        {
-          label: "Price",
-          data: [],
-          backgroundColor: "rgb(75, 192, 192)",
-          borderColor: "rgba(75, 192, 192, 0.2)",
-          fill: false,
-        },
-      ],
-    };
-  } else {
-    finalData = {
-      labels: [],
-      datasets: [
-        {
-          label: "Price",
-          data: [],
-          backgroundColor: "rgb(153, 102, 255)",
-          borderColor: "rgba(153, 102, 255, 0.2)",
-          fill: false,
-        },
-      ],
-    };
-  }
+  finalData = {
+    labels: [],
+    datasets: [
+      {
+        label: "Price",
+        data: [],
+        backgroundColor: "rgb(57, 255, 20)",
+        borderColor: "rgba(57, 255, 20, 0.2)",
+        fill: false,
+      },
+    ],
+  };
+}
+else if (chartNum === 2) {
+  finalData = {
+    labels: [],
+    datasets: [
+      {
+        label: "Price",
+        data: [],
+        backgroundColor: "rgb(255, 163, 67)",
+        borderColor: "rgba(255, 163, 67, 0.2)",
+        fill: false,
+      },
+    ],
+  };
+}
+else {
+  finalData = {
+    labels: [],
+    datasets: [
+      {
+        label: "Price",
+        data: [],
+        backgroundColor: "rgb(254, 65, 100)",
+        borderColor:  "rgba(254, 65, 100, 0.2)",
+        fill: false,
+      },
+    ],
+  };
+}  
 
   data = Array.from(data);
   let dates = data.map((val) => {

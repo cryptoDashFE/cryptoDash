@@ -2,34 +2,32 @@ import "./index.css";
 import React from "react";
 import { useState, useEffect, useRef } from "react";
 import Pricechart from "./components/Pricechart";
-import Largechart from "./components/Largechart";
 import { formatWeekData } from "./formatWeekData";
 import { formatMonthData } from "./formatMonthData";
-import { formatData } from "./utils.js";
 import { ThreeMonthformat } from "./ThreeMonthformat";
 import { OneDayFormat } from "./OneDayFormat";
 import { SixMonthFormat } from "./SixMonthFormat";
 import DateISOConverter from "./DateISOConverter";
+import { Line } from "react-chartjs-2";
 
 function App() {
   const[time, setTime] = useState('');
- // const[chartLg, setChartLg] = useState([]);
+  const[chartLg, setChartLg] = useState({});
   const [currencies, setcurrencies] = useState([]);
   
   //Chart 1 
   const [pair1, setpair1] = useState("LTC-USD");
   const [price1, setprice1] = useState("0.00");
-  const [pastData1, setpastData1] = useState({});
+  const [pastData1, setpastData1] = useState([]);
 
   //Chart 2
   const [pair2, setpair2] = useState("ETH-USD");
   const [price2, setprice2] = useState("0.00");
-  const [pastData2, setpastData2] = useState({});
-
+  const [pastData2, setpastData2] = useState([])
   //Chart 3
   const [pair3, setpair3] = useState("BTC-USD");
   const [price3, setprice3] = useState("0.00");
-  const [pastData3, setpastData3] = useState({});
+  const [pastData3, setpastData3] = useState([]);
 
   //so each chart can keep track of live time data
   const ws1 = useRef(null);
@@ -38,8 +36,19 @@ function App() {
 
   let first = useRef(false);
   const url = "https://api.pro.coinbase.com";
+  const opts = {
+    animation: {
+      duration: 0
+    },
+    tooltips: {
+      intersect: false,
+      mode: "index",
+    },
+    responsive: true,
+    maintainAspectRatio: false,
+  };
 
-  //populate cryptocurrency options in dropdown
+ //populate cryptocurrency options in dropdown
   useEffect(() => {
     ws1.current = new WebSocket("wss://ws-feed.pro.coinbase.com");
     ws2.current = new WebSocket("wss://ws-feed.pro.coinbase.com");
@@ -100,27 +109,17 @@ function App() {
     let historicalDataURL;
     if (time === "1d") {
       historicalDataURL = `${url}/products/${pair1}/candles?granularity=3600`;
-    } else if (time === "1w") {
-      historicalDataURL = `${url}/products/${pair1}/candles?granularity=86400`;
-    } else if (time === "1m") {
-      historicalDataURL = `${url}/products/${pair1}/candles?granularity=86400`;
-    } else if (time === "3m") {
-      historicalDataURL = `${url}/products/${pair1}/candles?granularity=86400`;
     } else if (time === "6m") {
       // Returns current ISO time
       let stop = DateISOConverter();
       // Returns 6 month past ISO time
       let start = DateISOConverter(6);
-
       historicalDataURL = `${url}/products/${pair1}/candles?start=${start}&stop=${stop}&granularity=86400`;
-    } else if (time === "1y") {
-      historicalDataURL = `${url}/products/${pair1}/candles?granularity=86400`;
     } else {
-      // By defalut 24 hours data range
-      historicalDataURL = `${url}/products/${pair1}/candles?granularity=3600`;
-    }
+      historicalDataURL = `${url}/products/${pair1}/candles?granularity=86400`;
+    } 
 
-    const fetchHistoricalData = async () => {
+    const fetchHistoricalData1 = async () => {
       let dataArr = [];
       await fetch(historicalDataURL)
         .then((res) => res.json())
@@ -128,8 +127,6 @@ function App() {
           dataArr = data;
         });
 
-      /*************** TODO : Implement all timeframe functions.  ******************/
-      // Replace formatData function with the function for that specific timeframe.
       let formattedData;
       if (time === "1d") {
         formattedData = OneDayFormat(dataArr, 1);
@@ -143,16 +140,14 @@ function App() {
         formattedData = ThreeMonthformat(dataArr, 1);
       } else if (time === "6m") {
         formattedData = SixMonthFormat(dataArr, 1);
-      } else if (time === "1y") {
-        formattedData = ThreeMonthformat(dataArr, 1);
       } else {
         // by default
-        formattedData = formatData(dataArr, 1);
+        formattedData = formatWeekData(dataArr, 1);
       }
       setpastData1(formattedData);
     };
 
-    fetchHistoricalData();
+    fetchHistoricalData1();
 
     ws1.current.onmessage = (e) => {
       let data = JSON.parse(e.data);
@@ -203,12 +198,6 @@ function App() {
     let historicalDataURL;
     if (time === "1d") {
       historicalDataURL = `${url}/products/${pair2}/candles?granularity=3600`;
-    } else if (time === "1w") {
-      historicalDataURL = `${url}/products/${pair2}/candles?granularity=86400`;
-    } else if (time === "1m") {
-      historicalDataURL = `${url}/products/${pair2}/candles?granularity=86400`;
-    } else if (time === "3m") {
-      historicalDataURL = `${url}/products/${pair2}/candles?granularity=86400`;
     } else if (time === "6m") {
       // Returns current ISO time
       let stop = DateISOConverter();
@@ -216,15 +205,12 @@ function App() {
       let start = DateISOConverter(6);
 
       historicalDataURL = `${url}/products/${pair2}/candles?start=${start}&stop=${stop}&granularity=86400`;
-    } else if (time === "1y") {
-      historicalDataURL = `${url}/products/${pair2}/candles?granularity=86400`;
     } else {
-      // By defalut 24 hours data range
-      historicalDataURL = `${url}/products/${pair2}/candles?granularity=3600`;
+      historicalDataURL = `${url}/products/${pair2}/candles?granularity=86400`;
     }
 
     // console.log(historicalDataURL);
-    const fetchHistoricalData = async () => {
+    const fetchHistoricalData2 = async () => {
       let dataArr = [];
       await fetch(historicalDataURL)
         .then((res) => res.json())
@@ -232,8 +218,6 @@ function App() {
           dataArr = data;
         });
 
-      /*************** TODO : Implement all timeframe functions.  ******************/
-      // Replace formatData function with the function for that specific timeframe.
       let formattedData;
       if (time === "1d") {
         formattedData = OneDayFormat(dataArr, 2);
@@ -247,16 +231,14 @@ function App() {
         formattedData = ThreeMonthformat(dataArr, 2);
       } else if (time === "6m") {
         formattedData = SixMonthFormat(dataArr, 2);
-      } else if (time === "1y") {
-        formattedData = ThreeMonthformat(dataArr, 2);
       } else {
         // by default
-        formattedData = formatData(dataArr, 2);
+        formattedData = formatWeekData(dataArr, 2);
       }
       setpastData2(formattedData);
     };
 
-    fetchHistoricalData();
+    fetchHistoricalData2();
 
     ws2.current.onmessage = (e) => {
       let data = JSON.parse(e.data);
@@ -307,12 +289,6 @@ function App() {
     let historicalDataURL;
     if (time === "1d") {
       historicalDataURL = `${url}/products/${pair3}/candles?granularity=3600`;
-    } else if (time === "1w") {
-      historicalDataURL = `${url}/products/${pair3}/candles?granularity=86400`;
-    } else if (time === "1m") {
-      historicalDataURL = `${url}/products/${pair3}/candles?granularity=86400`;
-    } else if (time === "3m") {
-      historicalDataURL = `${url}/products/${pair3}/candles?granularity=86400`;
     } else if (time === "6m") {
       // Returns current ISO time
       let stop = DateISOConverter();
@@ -320,14 +296,11 @@ function App() {
       let start = DateISOConverter(6);
 
       historicalDataURL = `${url}/products/${pair3}/candles?start=${start}&stop=${stop}&granularity=86400`;
-    } else if (time === "1y") {
-      historicalDataURL = `${url}/products/${pair3}/candles?granularity=86400`;
     } else {
-      // By defalut 24 hours data range
-      historicalDataURL = `${url}/products/${pair3}/candles?granularity=3600`;
+      historicalDataURL = `${url}/products/${pair3}/candles?granularity=86400`;
     }
 
-    const fetchHistoricalData = async () => {
+    const fetchHistoricalData3 = async () => {
       let dataArr = [];
       await fetch(historicalDataURL)
         .then((res) => res.json())
@@ -335,8 +308,6 @@ function App() {
           dataArr = data;
         });
 
-      /*************** TODO : Implement all timeframe functions.  ******************/
-      // Replace formatData function with the function for that specific timeframe.
       let formattedData;
       if (time === "1d") {
         formattedData = OneDayFormat(dataArr, 3);
@@ -350,16 +321,14 @@ function App() {
         formattedData = ThreeMonthformat(dataArr, 3);
       } else if (time === "6m") {
         formattedData = SixMonthFormat(dataArr, 3);
-      } else if (time === "1y") {
-        formattedData = ThreeMonthformat(dataArr, 3);
       } else {
         // by default
-        formattedData = formatData(dataArr, 3);
+        formattedData = formatWeekData(dataArr, 3);
       }
       setpastData3(formattedData);
     };
 
-    fetchHistoricalData();
+    fetchHistoricalData3();
 
     ws3.current.onmessage = (e) => {
       let data = JSON.parse(e.data);
@@ -391,21 +360,50 @@ function App() {
   };
 
   useEffect(() => {
-    // console.log(pastData1);
-  });
+    let array1 = [];
+    let array2 = [];
+    let array3 = [];
+    if(typeof pastData1.datasets !== 'undefined')
+      {array1 = pastData1.datasets[0].data;}
+    if(typeof pastData2.datasets !== 'undefined')
+      {array2 = pastData2.datasets[0].data;}
+    if(typeof pastData3.datasets !== 'undefined')
+      {array3 = pastData3.datasets[0].data;}
+    let finalData = {
+      labels: pastData1.labels,
+      datasets: [
+      {
+        label: pair1 + " Price",
+        data: array1,
+        backgroundColor: "rgb(57, 255, 20)",
+        borderColor: "rgba(57, 255, 20, 0.2)",
+        fill: false,
+      },
+      {
+        label: pair2 + " Price",
+        data: array2,
+        backgroundColor: "rgb(255, 163, 67)",
+        borderColor: "rgba(255, 163, 67, 0.2)",
+        fill: false,
+      },
+      {
+        label: pair3 + " Price",
+        data: array3,
+        backgroundColor: "rgb(254, 65, 100)",
+        borderColor:  "rgba(254, 65, 100, 0.2)",
+        fill: false,
+      }]
+      };
+      setChartLg(finalData);
+  }, [pastData1, pastData2, pastData3, pair1, pair2, pair3]);
+
   return (
     <section className="grid-container mainChart">
       <div className="grid-item logo">
         <img src="logo.png" alt="Logo" height="50px" width="50px"></img>
       </div>
       <div id="lgChart" className="grid-item lgChart">
-        {/* <Largechart data={pastData1} /> */}
-        <Largechart
-          price={price1}
-          data1={pastData1}
-          data2={pastData2}
-          data3={pastData3}
-        />
+        <Line data={chartLg} options={opts} />
       </div>
       <div className="grid-item timeFrames">
         <div className="buttons">
@@ -414,7 +412,6 @@ function App() {
         <button onClick={(e) => setTime('1m')} type="button" className="btn btn-primary">1M</button>
         <button onClick={(e) => setTime('3m')} type="button" className="btn btn-primary">3M</button>
         <button onClick={(e) => setTime('6m')} type="button" className="btn btn-primary">6M</button>
-        <button onClick={(e) => setTime('1y')} type="button" className="btn btn-primary">1Y</button>
         </div>
       </div>
       <div id="smChart1" className="grid-item smChart1">
