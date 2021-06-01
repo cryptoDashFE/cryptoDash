@@ -1,6 +1,7 @@
 import { Line } from "react-chartjs-2";
 
 function Pricechart({ price, data }) {
+  
   const opts = {
     animation: {
       duration: 0

@@ -1,4 +1,5 @@
-export const formatData = (data, chartNum) => {
+// Format one week data
+export const OneDayFormat = (data, chartNum) => {
   let finalData;
   if (chartNum === 1) {
     finalData = {
@@ -40,28 +41,50 @@ export const formatData = (data, chartNum) => {
       ],
     };
   }
+
   data = Array.from(data);
-  let dates = data.map((val) => {
+  let hms = data.map((val) => {
+    // [0, 1, 2, 3, 4, 5]
+    // [ time, low, high, open, close, volume ],
+    // [ 1415398768, 0.32, 4.2, 0.35, 4.2, 12.3 ]
+    // Here time is in unix timestamp
+    // Convert time from unix to current date.
     const ts = val[0];
-    // console.log("ts:", ts);
     let date = new Date(ts * 1000);
     let day = date.getDate();
     let month = date.getMonth() + 1;
     let year = date.getFullYear();
+    let hour = date.getHours();
+    let minute = date.getMinutes();
+    let second = date.getSeconds();
 
-    let final = `${month}-${day}-${year}`;
+    let final = `${day}-${month}-${year} ${hour}:${minute}:${second}`;
+
     return final;
   });
 
+  // Process all the data
   let priceArr = data.map((val) => {
     return val[4];
   });
 
-  priceArr.reverse();
-  dates.reverse();
-  finalData.labels = dates;
-  finalData.datasets[0].data = priceArr;
+  // Only save last 24 hours data
+  let oneDayHMS = [];
+  for (let i = 0; i < 24; i++) {
+    oneDayHMS[i] = hms[i];
+  }
 
-  //   console.log("final data", finalData);
+  // Only keep prices of seven days
+  let dayArr = [];
+  if (priceArr.length >= 24) {
+    for (let i = 0; i < 24; i++) {
+      dayArr[i] = priceArr[i].toFixed(2);
+    }
+  }
+
+  dayArr.reverse();
+  oneDayHMS.reverse();
+  finalData.labels = oneDayHMS;
+  finalData.datasets[0].data = dayArr;
   return finalData;
 };
