@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/cryptoDashFE/cryptoDash/static/css/main.765dfbee.chunk.css",
+    "main.js": "/cryptoDashFE/cryptoDash/static/js/main.b7f197ec.chunk.js",
+    "main.js.map": "/cryptoDashFE/cryptoDash/static/js/main.b7f197ec.chunk.js.map",
+    "runtime-main.js": "/cryptoDashFE/cryptoDash/static/js/runtime-main.e7fdb01e.js",
+    "runtime-main.js.map": "/cryptoDashFE/cryptoDash/static/js/runtime-main.e7fdb01e.js.map",
+    "static/css/2.61b4cb56.chunk.css": "/cryptoDashFE/cryptoDash/static/css/2.61b4cb56.chunk.css",
+    "static/js/2.96f79625.chunk.js": "/cryptoDashFE/cryptoDash/static/js/2.96f79625.chunk.js",
+    "static/js/2.96f79625.chunk.js.map": "/cryptoDashFE/cryptoDash/static/js/2.96f79625.chunk.js.map",
+    "index.html": "/cryptoDashFE/cryptoDash/index.html",
+    "static/css/2.61b4cb56.chunk.css.map": "/cryptoDashFE/cryptoDash/static/css/2.61b4cb56.chunk.css.map",
+    "static/css/main.765dfbee.chunk.css.map": "/cryptoDashFE/cryptoDash/static/css/main.765dfbee.chunk.css.map",
+    "static/js/2.96f79625.chunk.js.LICENSE.txt": "/cryptoDashFE/cryptoDash/static/js/2.96f79625.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e7fdb01e.js",
+    "static/css/2.61b4cb56.chunk.css",
+    "static/js/2.96f79625.chunk.js",
+    "static/css/main.765dfbee.chunk.css",
+    "static/js/main.b7f197ec.chunk.js"
+  ]
+}
